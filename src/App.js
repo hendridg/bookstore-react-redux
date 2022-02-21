@@ -6,7 +6,10 @@ import Header from './components/Header';
 
 function App() {
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)', height: '100vh' }}
+    >
       <BrowserRouter>
         <Header />
         <Routes>
