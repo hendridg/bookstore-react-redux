@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { removeBook } from '../redux/books/books';
 
 const WrapperCardBook = styled.div`
   box-sizing: border-box;
@@ -92,18 +94,25 @@ const Spinner = styled.div`
 `;
 
 const CardBook = (props) => {
-  const { categorie, author, title } = props;
+  // prettier-ignore
+  const {
+    id, category, author, title,
+  } = props;
+
+  const dispatch = useDispatch();
   return (
     <WrapperCardBook>
       <Container>
         <div style={{ textAlign: 'left' }}>
-          <LightFont bold>{categorie}</LightFont>
+          <LightFont bold>{category}</LightFont>
           <Title>{title}</Title>
           <Author>{author}</Author>
         </div>
         <div>
           <Button>Comments</Button>
-          <Button>Remove</Button>
+          <Button type="button" onClick={() => dispatch(removeBook(id))}>
+            Remove
+          </Button>
           <Button>Edit</Button>
         </div>
       </Container>
@@ -126,8 +135,9 @@ const CardBook = (props) => {
 };
 
 CardBook.propTypes = {
-  categorie: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 export default CardBook;
