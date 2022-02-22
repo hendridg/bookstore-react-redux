@@ -8,8 +8,4 @@ const reducer = combineReducers({
 
 const store = createStore(reducer, applyMiddleware(logger));
 
-// store.subscribe(() => {
-//   console.log(store.getState());
-// });
-
 export default store;
