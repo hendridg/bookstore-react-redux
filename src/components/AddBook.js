@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from 'react-redux';
+import { addBook } from '../redux/books/books';
 
 /* prettier-ignore */
 const Container = styled.div`
@@ -36,6 +39,7 @@ const Title = styled.p`
 const Input = styled.input`
   padding: 1em;
   width: 60%;
+  text-transform: capitalize;
 `;
 
 const Select = styled.select`
@@ -58,19 +62,47 @@ const Button = styled.button`
 const CATEGORIES = ['Action', 'Romance', 'Science Fiction', 'Economy'];
 
 function AddBook() {
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('Action');
+  const dispatch = useDispatch();
+
+  const submitBookToStore = (title, category) => {
+    const newBook = {
+      id: uuidv4(),
+      title,
+      category,
+    };
+    dispatch(addBook(newBook));
+    setTitle('');
+    setCategory('Action');
+  };
   return (
     <Container>
       <Title>Add New Book</Title>
       <Container spaceBetween row noBorder style={{ margin: '0 0 1rem 0' }}>
-        <Input type="text" placeholder="Book title" />
-        <Select id="categories">
+        <Input
+          type="text"
+          placeholder="Book title"
+          onChange={({ target }) => setTitle(target.value)}
+          value={title}
+        />
+        <Select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          onBlur={(e) => setCategory(e.target.value)}
+        >
           {CATEGORIES.map((categorie) => (
             <option key={categorie} value={categorie}>
               {categorie}
             </option>
           ))}
         </Select>
-        <Button type="button">Add Book</Button>
+        <Button
+          type="submit"
+          onClick={() => submitBookToStore(title, category)}
+        >
+          Add Book
+        </Button>
       </Container>
     </Container>
   );
