@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const WrapperHeader = styled.div`
-  padding: 0 2rem;
+  padding: 0 3rem;
   border-bottom: solid 0.125rem #e8e8e8;
   background-color: #fff;
   display: flex;

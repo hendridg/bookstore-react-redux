@@ -8,7 +8,7 @@ function App() {
   return (
     <div
       className="App"
-      style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)', height: '100vh' }}
+      style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)', height: '100%' }}
     >
       <BrowserRouter>
         <Header />
