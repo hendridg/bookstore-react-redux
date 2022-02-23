@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { removeBook } from '../redux/books/books';
+import { removeBook, getApi, exampleThunkFunction } from '../redux/books/books';
 
 const WrapperCardBook = styled.div`
   box-sizing: border-box;
@@ -107,13 +107,18 @@ const CardBook = (props) => {
           <LightFont bold>{category}</LightFont>
           <Title>{title}</Title>
           <Author>{author}</Author>
+          <p>{id}</p>
         </div>
         <div>
-          <Button>Comments</Button>
+          <Button type="button" onClick={() => dispatch(getApi)}>
+            Comments
+          </Button>
           <Button type="button" onClick={() => dispatch(removeBook(id))}>
             Remove
           </Button>
-          <Button>Edit</Button>
+          <Button type="button" onClick={() => dispatch(exampleThunkFunction)}>
+            Edit
+          </Button>
         </div>
       </Container>
       <Container row>
