@@ -18,7 +18,7 @@ export const removeBook = (payload) => ({
 
 export const exampleThunkFunction = (dispatch, getState) => {
   const stateBefore = getState();
-  console.log(`State before: ${stateBefore.booksReducer.books}`);
+  console.log(`State before: ${stateBefore.booksReducer.books.title}`);
   dispatch(
     addBook({
       id: '1',
@@ -27,7 +27,7 @@ export const exampleThunkFunction = (dispatch, getState) => {
     }),
   );
   const stateAfter = getState();
-  console.log(`State after: ${stateAfter.booksReducer.books[0].title}`);
+  console.log(`State after: ${stateAfter.booksReducer.books.item1[0].title}`);
 };
 
 const GET_CURRENT_API = 'GET_CURRENT_API';
@@ -51,12 +51,11 @@ const reducer = (state = initialState, action) => {
         books: [...state.books, action.payload],
       };
     case REMOVE_BOOK: {
-      const newBook = state.books;
+      const newBook = { ...state.books };
       delete newBook[action.payload];
       return {
         ...state,
         books: newBook,
-        // books: state.books.filter((book) => book.id !== action.payload),
       };
     }
     case GET_CURRENT_API:
