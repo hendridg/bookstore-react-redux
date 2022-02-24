@@ -7,6 +7,10 @@ React - Redux Project
 
 ![screenshot](./react-screenshot-01.png)
 
+## Live Demo
+
+[Live Demo Link](https://bookstore-hendrid.herokuapp.com/)
+
 ## Built With
 
 - React
