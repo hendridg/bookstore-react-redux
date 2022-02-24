@@ -1,7 +1,7 @@
 React - Redux Project
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Math Magicians Project React
+# BookStore Project React
 
 > "Bookstore" This project will lay foundations for your Bookstore website
 
