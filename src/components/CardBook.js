@@ -110,7 +110,12 @@ const CardBook = (props) => {
         </div>
         <div>
           <Button>Comments</Button>
-          <Button type="button" onClick={() => dispatch(removeBook(id))}>
+          <Button
+            type="button"
+            onClick={() => {
+              dispatch(removeBook(id));
+            }}
+          >
             Remove
           </Button>
           <Button>Edit</Button>
