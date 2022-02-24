@@ -12,6 +12,7 @@ const Container = styled.div`
   border-top: solid 0.125rem #e8e8e8;
   padding-top: 2rem;
   width: 90%;
+  max-width: 75rem;
   ${(props) => props.row && css`
       padding: 0;
       flex-direction: row;
@@ -43,7 +44,7 @@ const Input = styled.input`
 `;
 
 const Select = styled.select`
-  padding: 1em;
+  padding: 1rem;
   width: 20%;
 `;
 

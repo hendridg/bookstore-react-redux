@@ -12,7 +12,7 @@ const WrapperHeader = styled.div`
 `;
 
 const Container = styled.div`
-  width: 82rem;
+  width: 75rem;
   display: flex;
   flex-direction: row;
   align-items: center;

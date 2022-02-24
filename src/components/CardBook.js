@@ -28,9 +28,12 @@ const Container = styled.div`
       flex-direction: row;
       align-items: center;
     `}
-    ${(props) => props.justifyCenter && css`
-      justify-content: space-around;
-    `}
+  ${(props) => props.justifyCenter && css`
+    justify-content: space-around;
+  `}
+  ${(props) => props.borderRigth && css`
+    border-right: 2px solid #e8e8e8;
+  `}
 `;
 /* prettier-ignore */
 const LightFont = styled.h3`
@@ -48,7 +51,7 @@ const LightFont = styled.h3`
 const Title = styled.p`
   margin: 0;
   color: #121212;
-  font-family: RobotoSlab;
+  font-family: 'RobotoSlab';
   font-size: 1.375rem;
   font-weight: bold;
   letter-spacing: -0.2px;
@@ -82,6 +85,10 @@ const Button = styled.button`
       font-weight: 300;
       background-color: #0290ff;
     `}
+  ${(props) => props.borderRigth && css`
+      padding: 0 1em 0 0;
+      border-right: 2px solid #e8e8e8;
+    `}
 `;
 
 const Spinner = styled.div`
@@ -109,8 +116,9 @@ const CardBook = (props) => {
           <Author>{author}</Author>
         </div>
         <div>
-          <Button>Comments</Button>
+          <Button borderRigth>Comments</Button>
           <Button
+            borderRigth
             type="button"
             onClick={() => {
               dispatch(removeBook(id));
@@ -121,17 +129,31 @@ const CardBook = (props) => {
           <Button>Edit</Button>
         </div>
       </Container>
-      <Container row>
+      <Container row style={{ marginRight: '5rem' }}>
         <Container row>
           <Spinner />
-          <Container justifyCenter>
-            <h2 style={{ margin: 0 }}>64%</h2>
+          <Container
+            borderRigth
+            justifyCenter
+            style={{ paddingRight: '2.5rem', marginRight: '2.5rem' }}
+          >
+            <h2
+              style={{
+                margin: 0,
+                fontFamily: 'Montserrat',
+                fontWeight: 'normal',
+              }}
+            >
+              64%
+            </h2>
             <LightFont style={{ margin: 0 }}>Completed</LightFont>
           </Container>
         </Container>
-        <Container style={{ marginLeft: '1rem' }}>
+        <Container style={{ marginLeft: '1rem', letterSpacing: 'normal' }}>
           <LightFont>CURRENT CHAPTER</LightFont>
-          <h3 style={{ margin: '0 0 1rem 0' }}>Chapter 17</h3>
+          <p style={{ margin: '0 0 1rem 0', fontFamily: 'RobotoSlab' }}>
+            Chapter 17
+          </p>
           <Button primary>UPDATE PROGRESS</Button>
         </Container>
       </Container>
