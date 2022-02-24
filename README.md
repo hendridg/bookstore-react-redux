@@ -6,7 +6,6 @@ React - Redux Project
 > "Bookstore" This project will lay foundations for your Bookstore website
 
 ![screenshot](./react-screenshot-01.png)
-![screenshot](./react-screenshot-02.png)
 
 ## Built With
 
