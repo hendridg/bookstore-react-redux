@@ -1,41 +1,16 @@
 const ADD_BOOK = 'bookStore/books/ADD_BOOK';
 const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
+const GET_CURRENT_API = 'bookStore/books/GET_CURRENT_API';
+const GET_CURRENT_API_SUCCESS = 'bookStore/books/GET_CURRENT_API_SUCCESS';
+const GET_CURRENT_API_FAILURE = 'bookStore/books/GET_CURRENT_API_FAILURE';
+const API = `
+  https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/te3yGvr5UxRAlLl8NErA/books/
+`;
 
 const initialState = {
   status: 'Idle',
-  books: [],
+  books: {},
 };
-
-export const addBook = (payload) => ({
-  type: ADD_BOOK,
-  payload,
-});
-
-export const removeBook = (payload) => ({
-  type: REMOVE_BOOK,
-  payload,
-});
-
-export const exampleThunkFunction = (dispatch, getState) => {
-  const stateBefore = getState();
-  console.log(`State before: ${stateBefore.booksReducer.books.title}`);
-  dispatch(
-    addBook({
-      id: '1',
-      title: 'hello',
-      category: 'romance',
-    }),
-  );
-  const stateAfter = getState();
-  console.log(`State after: ${stateAfter.booksReducer.books.item1[0].title}`);
-};
-
-const GET_CURRENT_API = 'GET_CURRENT_API';
-const GET_CURRENT_API_SUCCESS = 'GET_CURRENT_API_SUCCESS';
-const GET_CURRENT_API_FAILURE = 'GET_CURRENT_API_FAILURE';
-const API = `
-  https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/te3yGvr5UxRAlLl8NErA/books
-`;
 
 export const getApi = async (dispatch) => {
   dispatch({ type: GET_CURRENT_API });
@@ -43,20 +18,51 @@ export const getApi = async (dispatch) => {
   return dispatch({ type: GET_CURRENT_API_SUCCESS, books });
 };
 
+export const removeBook = (payload) => async (dispatch) => {
+  const response = await fetch(API + payload, {
+    method: 'DELETE',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  }).then((res) => res.status);
+  const result = response === 201 ? 'Book removed' : 'Fail to remove';
+  dispatch(getApi);
+  return dispatch({ type: REMOVE_BOOK, result });
+};
+
+export const addBook = (newBook) => async (dispatch) => {
+  const response = await fetch(API, {
+    method: 'POST',
+    mode: 'cors',
+    body: JSON.stringify(newBook),
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.status);
+  const result = response === 201 ? 'Book adding' : 'Fail to post';
+  dispatch(getApi);
+  return dispatch({ type: ADD_BOOK, result });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_BOOK:
       return {
         ...state,
-        books: [...state.books, action.payload],
+        status: action.result,
       };
     case REMOVE_BOOK: {
-      const newBook = { ...state.books };
-      delete newBook[action.payload];
-      return {
-        ...state,
-        books: newBook,
-      };
+      if (action.response === 201) {
+        return {
+          ...state,
+          status: 'Book Remove',
+        };
+      }
+      return state;
     }
     case GET_CURRENT_API:
       return {
