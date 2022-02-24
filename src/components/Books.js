@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import AddBook from './AddBook';
@@ -13,8 +13,10 @@ const Container = styled.div`
 
 function Books() {
   const books = useSelector(selectBooks);
-  // console.log(Object.values(books), Object.keys(books));
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getApi);
+  }, []);
   return (
     <Container>
       {books ? (
@@ -30,9 +32,6 @@ function Books() {
       ) : (
         <h1>Add new Book!</h1>
       )}
-      <button type="button" onClick={() => dispatch(getApi)}>
-        getApi
-      </button>
       <AddBook />
     </Container>
   );
